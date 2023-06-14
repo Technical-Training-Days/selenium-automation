@@ -1,0 +1,75 @@
+﻿using LearningSelenium.Utils;
+using OpenQA.Selenium;
+
+namespace LearningSelenium
+{
+    internal class ChromeDevToolsProtocolTests : BaseTest
+    {
+        private OpenQA.Selenium.DevTools.IDevToolsSession session;
+
+        [SetUp]
+        public override void SetUp()
+        {
+            SetDriver(CreateDriver(ConfigurationProvider.Configuration["browser"]));
+            var devTools = GetDriver() as OpenQA.Selenium.DevTools.IDevTools;
+            session = devTools.GetDevToolsSession();
+        }
+
+        [Test]
+        public async Task EmulateDeviceModeTest()
+        {
+            var deviceModeSetting = new OpenQA.Selenium.DevTools.V110.Emulation.SetDeviceMetricsOverrideCommandSettings
+            {
+                Width = 400,
+                Height = 600,
+                DeviceScaleFactor = 2,
+                Mobile = true
+            };
+
+            await session.GetVersionSpecificDomains<OpenQA.Selenium.DevTools.V110.DevToolsSessionDomains>()
+                  .Emulation
+                  .SetDeviceMetricsOverride(deviceModeSetting);
+
+            GetDriver().Navigate().GoToUrl("http://localhost:4200");
+
+            Thread.Sleep(5000);
+        }
+
+        [Test]
+        public async Task EmulateNetworkConditionsTest()
+        {
+            var networkConditions = new OpenQA.Selenium.DevTools.V110.Network.EmulateNetworkConditionsCommandSettings
+            {
+                DownloadThroughput = 10000
+            };
+
+            await session.GetVersionSpecificDomains<OpenQA.Selenium.DevTools.V110.DevToolsSessionDomains>()
+                .Network
+                .EmulateNetworkConditions(networkConditions);
+
+            GetDriver().Navigate().GoToUrl("https://www.selenium.dev");
+        }
+
+        [Test]
+        public async Task EmulateGeolocationTest()
+        {
+            var geolocation = new OpenQA.Selenium.DevTools.V110.Emulation.SetGeolocationOverrideCommandSettings
+            {
+                Latitude = 51.509865,
+                Longitude = -0.118092,
+                Accuracy = 1
+            };
+
+            await session.GetVersionSpecificDomains<OpenQA.Selenium.DevTools.V110.DevToolsSessionDomains>()
+                .Emulation
+                .SetGeolocationOverride(geolocation);
+
+            GetDriver().Navigate().GoToUrl("https://maps.google.com");
+            var element = new Wait(GetDriver())
+                .WaitForTheElementToBecomeVisible(By.CssSelector("#mylocation #sVuEFc"), TimeSpan.FromSeconds(10));
+            element.Click();
+
+            Thread.Sleep(10000);
+        }
+    }
+}

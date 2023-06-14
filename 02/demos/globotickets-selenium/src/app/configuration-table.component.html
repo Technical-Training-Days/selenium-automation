@@ -1,0 +1,65 @@
+<div class="summary-table">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Summary</th>
+        <th>Price</th>
+        <th *ngIf="ticketConfigurations.length">Remove</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="ticketConfigurations.length">
+      <tr *ngFor="let configuration of ticketConfigurations">
+        <td><b>{{ configuration.fullName }}</b></td>
+        <td>
+          <ul>
+            <li>
+              {{ configuration.numberOfDays }}-Day Conference Ticket ({{
+              ticketPrice * configuration.numberOfDays | currency
+              }})
+            </li>
+            <li *ngFor="
+              let lunchOption of lunchOptions
+                | filterLunchOptions: configuration.lunchOption
+            ">
+              Lunch: {{ lunchOption.name }} ({{ lunchOption.price | currency }})
+            </li>
+            <li *ngIf="(configuration.workshops | filterWorkshops).length">
+              Workshops:
+              <ul>
+                <li *ngFor="
+                  let workshop of configuration.workshops | filterWorkshops
+                ">
+                  {{ workshop.name }} ({{ workshop.price | currency }})
+                </li>
+              </ul>
+            </li>
+            <li *ngIf="configuration.notes">
+              Notes:
+              <p>{{ configuration.notes }}</p>
+            </li>
+          </ul>
+        </td>
+        <td>{{ configuration.totalPrice | currency }}</td>
+        <td>
+          <button [disabled]="isOrderProcessing" type="button" (click)="removeConfiguration(configuration.id!)">
+            <img src="../assets/remove.svg" alt="Remove" />
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tr class="no-tickets-row" *ngIf="!ticketConfigurations.length">
+      <br />
+      No added tickets.
+      <br />
+      <br />
+    </tr>
+    <tfoot>
+      <tr>
+        <th>Total</th>
+        <th></th>
+        <th>{{ ticketConfigurations | calculateTotalPrice | currency }}</th>
+      </tr>
+    </tfoot>
+  </table>
+</div>

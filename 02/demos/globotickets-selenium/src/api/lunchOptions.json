@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "Vegan", "price": 10, "selected": true },
+  { "id": 2, "name": "Pork", "price": 15, "selected": false },
+  { "id": 3, "name": "Chicken", "price": 15, "selected": false }
+]

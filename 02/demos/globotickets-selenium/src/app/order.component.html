@@ -1,0 +1,6 @@
+<div *ngIf="ticketConfigurations.length">
+  <img src="../assets/checkmark-4_Green.png" alt="Green checkmark" />
+  <h2 id="order-success">Your order has been successfully created!</h2>
+  <h3>Total to pay</h3>
+  <h3 id="amount-to-pay">{{ ticketConfigurations | calculateTotalPrice | currency }}</h3>
+</div>

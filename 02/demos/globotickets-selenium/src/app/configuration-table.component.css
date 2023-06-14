@@ -1,0 +1,43 @@
+table {
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+table thead, table tfoot {
+    background-color: #1B1834;
+    color: #fff;
+    height: 30px;
+}
+table tr td:nth-child(1), table tr td:nth-child(3), table tr td:nth-child(4) {
+    text-align: center;
+}
+
+button {
+    padding: 3%;
+    width: 50%;
+    max-width: 40px;
+    border: 1px solid #1b1834;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:disabled {
+    background: #ebebeb;
+    cursor: not-allowed;
+}
+
+button img {
+    width: 100%;
+    margin: 0 auto;
+    min-width: 20px;
+}
+
+button:disabled img {
+    filter: invert(78%) sepia(0%) saturate(708%) hue-rotate(215deg) brightness(90%) contrast(83%);
+}
+
+.no-tickets-row {
+    text-align: center;
+    font-size: 18px;
+}

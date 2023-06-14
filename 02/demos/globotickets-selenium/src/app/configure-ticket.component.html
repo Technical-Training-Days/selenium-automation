@@ -1,0 +1,98 @@
+<div class="customizeTicketForm-form">
+  <form #customizeTicketForm="ngForm" (ngSubmit)="(customizeTicketForm.form.valid)">
+    <h2>Order Details</h2>
+    <div class="form-group">
+      <div class="label-group">
+        <label for="full-name">Name<sup>*</sup></label>
+        <fa-icon [icon]="faCircleQuestion" placement="end" ngbTooltip="Please provide name of the attendee."></fa-icon>
+      </div>
+      <input type="text" id="full-name" #fullName="ngModel" name="fullName" [(ngModel)]="model.fullName"
+        class="{{ fullName.dirty && fullName.invalid ? 'input-invalid' : '' }}" [ngClass]="{
+          'is-invalid': fullName.dirty && fullName.invalid
+        }" required [disabled]="isOrderProcessing" />
+      <div class="validation-error" *ngIf="fullName.dirty && fullName.invalid">
+        <p *ngIf="fullName.errors && fullName.errors['required']" id="full-name_validation-error"
+          class="validation-error-text">Name is required.</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="label-group">
+        <label for="include-lunch">Include Lunch?</label>
+        <fa-icon [icon]="faCircleQuestion" placement="end"
+          ngbTooltip="Would you like to include lunch with your ticket?"></fa-icon>
+      </div>
+      <select id="include-lunch" name="includeLunch" [(ngModel)]="model.includeLunch" [disabled]="isOrderProcessing">
+        <option [value]="false">No</option>
+        <option [value]="true">Yes</option>
+      </select>
+    </div>
+    <div *ngIf="model.includeLunch && model.includeLunch.toString() === 'true'" class="form-group">
+      <p class="additional-text">Please select the lunch option.</p>
+      <ul>
+        <li *ngFor="let lunchOption of lunchOptions">
+          <input type="radio" [id]="'lunchOption-' + lunchOption.id" name="lunchOptions" [value]="lunchOption.id"
+            [(ngModel)]="model.lunchOption" [disabled]="isOrderProcessing" />
+          <label [for]="'lunchOption-' + lunchOption.id">{{ lunchOption.name }} ({{ lunchOption.price | currency
+            }})</label>
+        </li>
+      </ul>
+    </div>
+    <div class="form-group">
+      <div class="label-group">
+        <label>Select workshops</label>
+        <fa-icon [icon]="faCircleQuestion" placement="end"
+          ngbTooltip="Choose which workshops you'd like to attend. Each workshop is a full-day event."></fa-icon>
+      </div>
+      <ul>
+        <li *ngFor="let workshop of model.workshops">
+          <input type="checkbox" [(ngModel)]="workshop.checked" [name]="'workshop'" [id]="'workshop-' + workshop.id"
+            [disabled]="isOrderProcessing" />
+          <label [for]="'workshop-' + workshop.id">{{ workshop.name }} ({{ workshop.price | currency }})</label>
+        </li>
+      </ul>
+    </div>
+    <div class="form-group">
+      <div class="label-group">
+        <label for="number-of-days">Number of Conference Days</label>
+        <fa-icon [icon]="faCircleQuestion" placement="end"
+          ngbTooltip="The conference is a three-day event. Choose how many days you'd like to attend."></fa-icon>
+      </div>
+      <input type="range" min="1" max="3" step="1" #numberOfDays id="numberOfDays" name="numberOfDays"
+        [(ngModel)]="model.numberOfDays" [disabled]="isOrderProcessing" />
+      <span>{{ numberOfDays.value }} Day(s)</span>
+    </div>
+    <div class="form-group">
+      <div class="label-group">
+        <label for="photo">Upload Photo</label>
+        <fa-icon [icon]="faCircleQuestion" placement="end"
+          ngbTooltip="Your photo will be printed on your conference pass and displayed during the event."></fa-icon>
+      </div>
+      <input id="photo" type="file" accept=".jpg,.jpeg,.png" #photo name="photo" [(ngModel)]="model.photo"
+        [disabled]="isOrderProcessing" />
+    </div>
+    <div class="form-group">
+      <div class="label-group">
+        <label for="notes">Notes</label>
+        <fa-icon [icon]="faCircleQuestion" placement="end" ngbTooltip="If you have any special requests or additional information related to this ticket,
+          please provide them here."></fa-icon>
+      </div>
+      <textarea id="notes" name="notes" [(ngModel)]="model.notes" [disabled]="isOrderProcessing"></textarea>
+    </div>
+    <div class="form-actions">
+      <button type="submit" id="add-btn" (click)="onTicketAdd(customizeTicketForm.form)"
+        [disabled]="isOrderProcessing">Add</button>
+      <button type="button" id="clear-btn" (click)="onFormReset(customizeTicketForm.form)"
+        [disabled]="isOrderProcessing">Clear</button>
+    </div>
+
+    <div class="order-summary">
+      <h2>Order Summary</h2>
+      <app-configuration-table [isOrderProcessing]="isOrderProcessing" [ticketConfigurations]="ticketConfigurations"
+        [lunchOptions]="lunchOptions" [ticketPrice]="ticketPrice" (updateTicketConfigurations)="
+          updateTicketConfigurations($event)
+        "></app-configuration-table>
+      <button type="button" (click)="order()" id="order-btn" class="{{this.isOrderProcessing ? 'button-loading' : '' }}"
+        *ngIf="ticketConfigurations.length">{{this.isOrderProcessing ? '' : 'Order'}}</button>
+    </div>
+  </form>
+</div>

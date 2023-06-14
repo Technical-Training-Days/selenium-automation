@@ -1,0 +1,222 @@
+form {
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.form-group .label-group {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.label-group label {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.form-group > input[type="text"] {
+  width: 350px;
+  height: 35px;
+  font-size: 16px;
+  border: 1px solid #1b1834;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.form-group > input[type="text"]:disabled {
+  background: #ebebeb;
+  cursor: not-allowed;
+}
+
+.form-group > input[type="range"]:disabled {
+  cursor: not-allowed;
+}
+
+.form-group sup,
+.form-group .validation-error {
+  color: #dc143c;
+  font-size: 16px;
+}
+
+.form-group .validation-error-text {
+  margin: 5px 0;
+}
+
+.form-group > select {
+  width: 150px;
+  height: 35px;
+  font-size: 16px;
+  border: 1px solid #1b1834;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+
+.form-group > select:disabled {
+  background: #ebebeb;
+  cursor: not-allowed;
+}
+
+.form-group ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.form-group ul li {
+  clear: both;
+  display: block;
+  height: 25px;
+}
+
+.form-group input[type="radio"], .form-group input[type="checkbox"] {
+  float: left;
+  margin-right: 10px;
+  margin-top: 5px;
+  border: 1px solid #1b1834;
+  height: 20px;
+  width: 20px;
+}
+
+.form-group input[type="radio"]:disabled, .form-group input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+}
+
+.form-group ul li label {
+  float: left;
+  padding-top: 3px;
+  font-size: 16px;
+  height: 25px;
+  margin-bottom: 5px;
+}
+
+input[type="file"] {
+  font-size: 16px;
+}
+
+.additional-text {
+  margin-top: -8px;
+  font-size: 16px;
+}
+
+textarea {
+  border: 1px solid #1b1834;
+  border-radius: 5px;
+  padding-left: 5px;
+  height: 50px;
+  width: 350px;
+  font-size: 16px;
+  resize: vertical;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+textarea:disabled {
+  background: #ebebeb;
+  cursor: not-allowed;
+}
+
+.form-actions {
+  width: 100%;
+  display: block;
+  height: 40px;
+}
+
+.input-invalid {
+  border: 1px solid #dc143c !important;
+  outline-color: #dc143c;
+}
+
+.form-actions button {
+  float: left;
+}
+
+button {
+  position: relative;
+  display: block;
+  font-weight: 500;
+  font-size: 16px;
+  width: 120px;
+  height: 50px;
+  border: 1px solid #1b1834;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  background: #ebebeb;
+}
+
+button:hover {
+  cursor: pointer;
+  position: relative;
+  bottom: -1px;
+}
+
+button:hover:disabled {
+  cursor: not-allowed;
+  position: static;
+}
+
+button:active {
+  background: linear-gradient(to right, #f05a28 0, #e80a89 100%);
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  border: 1px solid #1b1834;
+}
+
+button:active:disabled {
+  background: #ebebeb;
+  cursor: not-allowed;
+  color: #aaa;
+}
+
+.button-loading {
+  background: linear-gradient(to right, #f05a28 0, #e80a89 100%);
+}
+
+.button-loading::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 5px solid transparent;
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: button-loading-spinner 1s ease infinite;
+}
+
+.success-msg {
+  height: 20px;
+  font-size: 18px;
+  color: rgb(21, 135, 21);
+}
+
+.order-summary {
+  margin-top: 80px;
+  margin-bottom: 50px;
+}
+
+fa-icon {
+  margin-left: 5px;
+}
+
+@keyframes button-loading-spinner {
+  from {
+      transform: rotate(0turn);
+  }
+
+  to {
+      transform: rotate(1turn);
+  }
+}
